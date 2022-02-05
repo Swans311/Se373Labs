@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter New Employees</title>
+</head>
+<body style="background-color:ghostwhite">
+    <div id="container" style="width:1400px; margin:auto; background-color:ghostwhite; content:center">
+        <h1 style="width:800px; margin:auto">Enter Employee Information.</h1>
+        <nav style= "width:800px; margin:auto;">
+            <a href="#" style=" width: 300px; text-decoration: underline; color:black;">New Employee Form</a>
+            <a href="workerList.html" style="width:300px; margin-left:150px; text-decoration: underline; color:black;">List of Employees</a>
+        </nav>
+        <form action='/saveNewEntry' method="post" style="content: center; color:black; width:600px; margin:auto;">
+            <span id="err" style="color: red;"></span>
+            <br>
+            <label for="firstName">Enter First Name Here.</label>
+            <br>
+            <input type="text" name="firstName" id="FNameEntry">
+            <br>
+            <label for="lastName">Enter Last Name Here.</label>
+            <br>
+            <input type="text" name="lastName" id="LNameEntry">
+            <br>
+            <br>
+            <label for="department">Select Department</label>
+            <br>
+            <select type="text" name="department" id="DeptEntry">
+                <option value="Janitor">Janitor</option>
+                <option value="Secretary">Secretary</option>
+                <option value="Officer">Officer</option>
+                <option value="Tech">Tech</option>
+                <option value="Other">Other</option>
+            </select>
+            <br>
+            <label for="startDate">Enter Start Date.</label>
+            <br>
+            <input type="date" name="startDate" id="StartDateEntry">
+            <br>
+            <label for="jobTitle">Enter Job Title.</label>
+            <br>
+            <input type="text" name="jobTitle" id="TitleEntry">
+            <br>
+            <label for="salary">Enter Salary Here. $</label>
+            <br>
+            <input type="number" name="salary" id="SalaryEntry">
+            <br>
+            <button type="submit" style="margin-top: 40px;">Submit Employee Information</button>
+        </form>
+    </div>
+</body>
+</html>

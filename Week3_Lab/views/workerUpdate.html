@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Worker</title>
+</head>
+<body style="background-color:ghostwhite">
+    <script>
+        console.log(window.location.href)
+        var index = window.location.href.indexOf("_id=")
+        console.log(index)
+        var empID = window.location.href.substring(index+4, window.location.href.length)
+        console.log(empID)
+        fetch('/getWorker').then((Employee)=>{
+                Employee.json().then((emp)=>{
+                    for(let Employee of emp.Employee){
+                        if(Employee._id == empID){
+                            document.getElementById("FNameEntry").value = Employee.firstName
+                            document.getElementById("LNameEntry").value = Employee.lastName
+                            document.getElementById("DeptEntry").value = Employee.department
+                            document.getElementById("StartDateEntry").value = Employee.startDate.substring(0,10)
+                            document.getElementById("TitleEntry").value = Employee.jobTitle
+                            document.getElementById("SalaryEntry").value = Employee.salary
+                            document.getElementById("_id").value = empID
+                            console.log("found a matching person "+Employee._id+ "Name: "+Employee.firstName, Employee.lastName)
+
+                        }
+                    } 
+                })
+            })
+
+    </script>
+    <div id="container" style="width:1400px; margin:auto; background-color:ghostwhite; content:center">
+        <h1 style="width:800px; margin:auto">Update Employee Information.</h1>
+        <nav style= "width:800px; margin:auto;">
+            <a href="index.html" style=" width: 300px; text-decoration: underline; color:black;">New Employee Form</a>
+            <a href="workerList.html" style="width:300px; margin-left:150px; text-decoration: underline; color:black;">List of Employees</a>
+        </nav>
+        <form action='/saveUpdatedEntry' method="POST" style="content: center; color:black; width:600px; margin:auto;">
+            <span id="err" style="color: red;"></span>
+            <br>
+            <input type = "hidden" name = "_id" id="_id">
+            <label for="firstName">Enter First Name Here.</label>
+            <br>
+            <input type="text" name="firstName" id="FNameEntry">
+            <br>
+            <label for="lastName">Enter Last Name Here.</label>
+            <br>
+            <input type="text" name="lastName" id="LNameEntry">
+            <br>
+            <br>
+            <label for="department">Select Department</label>
+            <br>
+            <select type="text" name="department" id="DeptEntry">
+                <option value="Janitor">Janitor</option>
+                <option value="Secretary">Secretary</option>
+                <option value="Officer">Officer</option>
+                <option value="Tech">Tech</option>
+                <option value="Other">Other</option>
+            </select>
+            <br>
+            <label for="startDate">Enter Start Date.</label>
+            <br>
+            <input type="date" name="startDate" id="StartDateEntry">
+            <br>
+            <label for="jobTitle">Enter Job Title.</label>
+            <br>
+            <input type="text" name="jobTitle" id="TitleEntry">
+            <br>
+            <label for="salary">Enter Salary Here. $</label>
+            <br>
+            <input type="number" name="salary" id="SalaryEntry">
+            <br>
+            <button type="submit" style="margin-top: 40px;">Submit Employee Information</button>
+        </form>
+</body>
+</html>

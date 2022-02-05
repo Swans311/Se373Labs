@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color:ghostwhite">
+    <div id="container" style="width:1400px; margin:auto; background-color:ghostwhite; content:center">
+    <h1 style="width:800px; margin:auto">Here is your list of All Employees</h1>
+    <nav style= "width:800px; margin:auto;">
+        <a href="index.html" style=" width: 300px; text-decoration: underline; color:black;">New Employee Form</a>
+        <a href="workerList.html" style="width:300px; margin-left:150px; text-decoration: underline; color:black;">List of Employees</a>
+    </nav>
+        <script>
+            fetch('/getData').then((Employee)=>{
+                Employee.json().then((emp)=>{
+                    document.write(`<body style="background-color:ghostwhite"><div id="container" style="width:1400px; margin:auto; background-color:ghostwhite; content:center"><h1 style="width:800px; margin:auto">Here is your list of All Employees</h1><nav style= "width:800px; margin:auto;"><a href="index.html" style=" width: 300px; text-decoration: underline; color:black;">New Employee Form</a><a href="#" style="width:300px; margin-left:150px; text-decoration: underline; color:black;">List of Employees</a> </nav>`)
+                    document.write("<TABLE style='content: center; color:black; width:1000px; margin:auto;''><TR><TH>First Name</TH><TH>Last Name</TH><TH>Department</TH><TH>Start Date</TH><TH>Job Title</TH><TH>Salary</TH>")
+                    for(let Employee of emp.Employee){
+                        //let element = document.createElement('p')
+                        let updateButton = document.createElement('button')
+                        updateButton.innerText = 'Update Employee'
+                        updateButton.addEventListener('click', function updateWorker(){
+                            location.href="workerUpdate.html?_id="+Employee._id
+                        })
+                        let deleteButton = document.createElement('button')
+                        deleteButton.innerText = 'Delete Entry'
+                        deleteButton.addEventListener('click', function deleteWorker(){
+                            location.reload()
+                            fetch('/deleteWorker',{
+                                method:'POST',
+                                headers:{
+                                    'Content-type':'application/json'
+                                },
+                                body:JSON.stringify({
+                                    _id:Employee._id,
+                                    Employee:Employee.FName
+                                })
+                            })
+                        })
+                        document.write("<TR id='"+Employee._id+"'><TD>"+Employee.firstName+"</TD> <TD>"+Employee.lastName +"</TD> <TD>"+Employee.department+"</TD> <TD>"+Employee.startDate+"</TD> <TD>"+Employee.jobTitle+"</TD> <TD> Salary: $"+Employee.salary+"</TD></TR>")
+                        document.getElementById(""+Employee._id).append(deleteButton)
+                        document.getElementById(""+Employee._id).append(updateButton)
+
+                        //document.getElementById('container').append(element)
+                        
+                        //element.appendChild(deleteButton)
+                        //element.appendChild(updateButton)
+                    } 
+                    document.write("</TABLE>")
+                })
+            })
+        </script>
+    </div>
+</body>
+</html>
